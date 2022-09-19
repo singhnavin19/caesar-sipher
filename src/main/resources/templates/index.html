@@ -3,19 +3,22 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<style>
+
+	#enc{
+		height: 225px;
+    	width: 374px
+	}
+</style>
 </head>
 <body>
-	
-	<form action="#">
-	
-		Please enter your user name
-		<input type="text">
-	<br>
-		Please enter your password
-		<input type="password">
+	<form id="form-1">
+		<textarea id="enc" rows="30" cols="30">
+		</textarea>	
+		<button>Encypt/Decrypt</button>
+		<textarea id="enc" rows="30" cols="30" readonly >
+		</textarea>	
 		
-		<input type="submit" >
-	
 	</form>
 </body>
 </html>
