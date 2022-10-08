@@ -2,9 +2,12 @@ package com.cipher.service;
 
 import java.util.Scanner;
 
+import org.springframework.stereotype.Component;
+
 import com.cipher.model.CipherModel;
 import com.cipher.util.CipherConstant;
 
+@Component
 public class CipherCeserService extends CipherGenericService {
 	// ALPHABET string denotes alphabet from a-z
 	public static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
@@ -17,10 +20,26 @@ public class CipherCeserService extends CipherGenericService {
 
 	@Override
 	public CipherModel process(CipherModel cipherModel) {
-		return null;
+		if (Boolean.TRUE.equals(cipherModel.getEncrypt()) && Boolean.TRUE.equals(cipherModel.getDecrypt())) {
+			cipherModel.setEncryptedOutput(this.encryptData(cipherModel.getInput(), 0));
+			cipherModel.setDecyptedOutput(this.decryptData(cipherModel.getEncryptedOutput(), 0));
+			return cipherModel;
+		}
+		if (Boolean.TRUE.equals(cipherModel.getEncrypt())) {
+			cipherModel.setEncryptedOutput(this.encryptData(cipherModel.getInput(), 0));
+			cipherModel.setDecyptedOutput(null);
+		}
+		if (Boolean.TRUE.equals(cipherModel.getDecrypt())) {
+			cipherModel.setDecyptedOutput(this.decryptData(cipherModel.getEncryptedOutput(), 0));
+			cipherModel.setEncryptedOutput(null);
+		}
+		return cipherModel;
 	}
 
 	public static String encryptData(String inputStr, int shiftKey) {
+		if (shiftKey == 0) {
+			shiftKey = CipherConstant.DEFAULT_SHIFT_VALUE;
+		}
 
 		String encryptStr = "";
 
@@ -57,6 +76,9 @@ public class CipherCeserService extends CipherGenericService {
 
 	// De//decryption
 	public static String decryptData(String inputStr, int shiftKey) {
+		if (shiftKey == 0) {
+			shiftKey = CipherConstant.DEFAULT_SHIFT_VALUE;
+		}
 
 		String decryptStr = "";
 
